@@ -7,9 +7,11 @@ import asyncio
 import aiohttp
 import datetime
 import time
+import random
 
 bot = commands.Bot(command_prefix='^')
-
+number = random.randrange(50, 1000):
+  return number
 
 @bot.event
 async def on_ready():
@@ -72,6 +74,14 @@ async def generate(ctx):
 @commands.has_permissions(manage_messages=True)
 async def clear(ctx, amount: int):
   await ctx.channel.purge(limit=amount)
+
+#CURRENCY
+@bot.command(brief='Rob a person or your friend by mentioning them')
+async def rob(ctx, member: discord.Membed = None):
+  if member != None:
+    await ctx.send(f"{ctx.author.mention}, you robbed and recieved", number)
+  if member == None:
+    await ctx.send(f"{ctx.author.mention} You must mention someone for robbing")
 
 
 bot.run(os.environ['DISCORD_TOKEN'])
