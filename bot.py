@@ -9,6 +9,8 @@ import datetime
 import time
 import random
 
+bot = commands.Bot(command_prefix='^')
+
 @bot.event
 async def on_ready():
   print(f"{bot.user} says:\nHello")
