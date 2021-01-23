@@ -9,7 +9,12 @@ import datetime
 import time
 import random
 
-bot = commands.Bot(command_prefix='^')
+intents = discord.Intents.default()
+intents.members = True
+intents.presences = True
+intents.typing = True
+
+bot = commands.Bot(command_prefix='^', intents=intents)
 
 @bot.event
 async def on_ready():
