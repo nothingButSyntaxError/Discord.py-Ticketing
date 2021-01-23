@@ -12,6 +12,7 @@ import random
 intents = discord.Intents.default()
 intents.members = True
 intents.presences = True
+
 intents.typing = True
 
 bot = commands.Bot(command_prefix='^', intents=intents)
