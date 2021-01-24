@@ -12,7 +12,6 @@ import random
 intents = discord.Intents.default()
 intents.members = True
 intents.presences = True
-
 intents.typing = True
 
 bot = commands.Bot(command_prefix='^', intents=intents)
@@ -20,11 +19,6 @@ bot = commands.Bot(command_prefix='^', intents=intents)
 @bot.event
 async def on_ready():
   print(f"{bot.user} says:\nHello")
-
-
-@bot.event
-async def on_guild_join(ctx, self):
-  await ctx.guild.create_category(TICKET)
 
 
 @bot.command()
@@ -47,6 +41,8 @@ async def howTO(ctx):
 @bot.command(brief='This command generates a new ticket for the user!', aliases=['ticket'])
 async def generate(ctx):
   async with ctx.typing():
+    warn = await ctx.send("Alright your ticket will be created")
+    await ctx.delete(warn)
     await ctx.message.delete()
     author = ctx.author
     guild = ctx.message.guild
