@@ -78,4 +78,4 @@ async def clear(ctx, amount: int):
 
 
 
-bot.run('Nzk1NTMyMjQ1MjkyMTU0OTAx.X_KvIw.Z8r84Zbt5lssS_3IZe11D8aAKZE')
+bot.run(os.environ['DISCORD_TOKEN'])
