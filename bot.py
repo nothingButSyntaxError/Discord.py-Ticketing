@@ -41,9 +41,9 @@ async def howTO(ctx):
 @bot.command(brief='This command generates a new ticket for the user!', aliases=['ticket'])
 async def generate(ctx):
   async with ctx.typing():
+    await ctx.message.delete()
     warn = await ctx.send("Alright your ticket will be created")
     await ctx.delete(warn)
-    await ctx.message.delete()
     author = ctx.author
     guild = ctx.message.guild
     client = bot.user
@@ -77,4 +77,4 @@ async def clear(ctx, amount: int):
 
 
 
-bot.run(os.environ['DISCORD_TOKEN'])
+bot.run('Nzk1NTMyMjQ1MjkyMTU0OTAx.X_KvIw.Z8r84Zbt5lssS_3IZe11D8aAKZE')
