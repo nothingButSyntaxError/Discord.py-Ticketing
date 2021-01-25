@@ -43,6 +43,7 @@ async def generate(ctx):
   async with ctx.typing():
     await ctx.message.delete()
     warn = await ctx.send("Alright your ticket will be created")
+    time.sleep(4)
     await warn.delete()
     author = ctx.author
     guild = ctx.message.guild
