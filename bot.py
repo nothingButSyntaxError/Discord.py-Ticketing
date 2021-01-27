@@ -63,26 +63,8 @@ async def generate(ctx):
         return m.content == "^close" and m.channel == TextChannel
     guild = ctx.message.guild
     msg = await bot.wait_for('message', check=check)
-    await TextChannel.send("Alright Your ticket will be deleted however do you want to save a transcript reply with y or n")
-    def check2(m):
-      return m.content == "y" and m.channel ==TextChannel
-      channel = ctx.message.channel
-      messages = await ctx.channel.history(limit=limit).flatten()
-      with open(f"{channel}_messages.txt", "a+", encoding="utf-8") as f:
-        print(
-            f"\nTranscript Saved by - {ctx.author.display_name}.\n\n", file=f)
-        for message in messages:
-            embed = ""
-            if len(message.embeds) != 0:
-                embed = message.embeds[0].description
-                print(f"{message.author.name} - {embed}", file=f)
-            print(f"{message.author.name} - {message.content}", file=f)
-    await ctx.message.add_reaction("✅")
-    await ctx.send(f"{ctx.author.mention}, Transcript saved.")
-    history = discord.File(fp=f'{channel}_messages.txt', filename=None)
-    await ctx.send(file=history)
-    time.sleep(5)
-    await TextChannel.delete()
+    await TextChannel.send("Ok so your ticket will be deleted")
+    await ctx.TextChannel.set_permission(ctx.author, read_messages=True)
 
 
 @bot.command(brief='This command can delete bulk messages!')
