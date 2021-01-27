@@ -40,7 +40,6 @@ async def howTO(ctx):
 
 @bot.command(brief='This command generates a new ticket for the user!', aliases=['ticket'])
 async def generate(ctx):
-  async with ctx.typing():
     await ctx.message.delete()
     warn = await ctx.send("Alright your ticket will be created")
     time.sleep(4)
@@ -60,15 +59,30 @@ async def generate(ctx):
     category = discord.utils.get(ctx.guild.categories, name=nameCAT)
     TextChannel = await guild.create_text_channel(f'{ctx.author}', overwrites=overwrites, reason='Ticketing', category=category)
     await TextChannel.send(f'{ctx.author.mention}, Welcome, Type down your problem and until then i will get some support staff to answer your query. Just use the ^close command to close ticket. THANK YOU FOR YOUR COORDINATION.')
-
-    while True:
-        def check(m):
-            return m.content == "^close" and m.channel == TextChannel
-        guild = ctx.message.guild
-        msg = await bot.wait_for('message', check=check)
-        await TextChannel.send("Alright deleting your ticket in 5 seconds......")
-        time.sleep(5)
-        await TextChannel.delete()
+    def check(m):
+        return m.content == "^close" and m.channel == TextChannel
+    guild = ctx.message.guild
+    msg = await bot.wait_for('message', check=check)
+    await TextChannel.send("Alright Your ticket will be deleted however do you want to save a transcript reply with y or n")
+    def check2(m):
+      return m.content == "y" and m.channel ==TextChannel
+      channel = ctx.message.channel
+      messages = await ctx.channel.history(limit=limit).flatten()
+      with open(f"{channel}_messages.txt", "a+", encoding="utf-8") as f:
+        print(
+            f"\nTranscript Saved by - {ctx.author.display_name}.\n\n", file=f)
+        for message in messages:
+            embed = ""
+            if len(message.embeds) != 0:
+                embed = message.embeds[0].description
+                print(f"{message.author.name} - {embed}", file=f)
+            print(f"{message.author.name} - {message.content}", file=f)
+    await ctx.message.add_reaction("✅")
+    await ctx.send(f"{ctx.author.mention}, Transcript saved.")
+    history = discord.File(fp=f'{channel}_messages.txt', filename=None)
+    await ctx.send(file=history)
+    time.sleep(5)
+    await TextChannel.delete()
 
 
 @bot.command(brief='This command can delete bulk messages!')
