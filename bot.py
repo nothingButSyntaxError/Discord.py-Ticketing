@@ -64,7 +64,7 @@ async def generate(ctx):
     guild = ctx.message.guild
     msg = await bot.wait_for('message', check=check)
     await TextChannel.send("Ok so your ticket will be deleted")
-    await ctx.TextChannel.set_permission(ctx.author, read_messages=True)
+    await TextChannel.set_permission(ctx.author, read_messages=True)
 
 
 @bot.command(brief='This command can delete bulk messages!')
