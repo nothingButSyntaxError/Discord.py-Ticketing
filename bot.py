@@ -94,6 +94,12 @@ async def history(ctx, limit: int = 100):
     history = discord.File(fp=f'{channel}_messages.txt', filename=None)
     await ctx.send(file=history)
 
+@bot.command(aliases=['del_chan'])
+@commands.has_permissions(administrator=True)
+async def shh(ctx):
+    Channel = ctx.message.channel
+    await Channel.delete()
+
 
 
 bot.run(os.environ['DISCORD_TOKEN'])
