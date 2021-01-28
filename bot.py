@@ -64,13 +64,16 @@ async def generate(ctx):
     guild = ctx.message.guild
     msg = await bot.wait_for('message', check=check)
     await TextChannel.send("Ok so your ticket will be deleted")
-    await TextChannel.set_permission(ctx.author, read_messages=True)
+    overwrite = discord.PermissionOverwrite()
+    overwrite.read_messages = False
+    await TextChannel.set_permissions(ctx.author, overwrite=overwrite)
 
 
 @bot.command(brief='This command can delete bulk messages!')
 @commands.has_permissions(manage_messages=True)
 async def clear(ctx, amount: int):
   await ctx.channel.purge(limit=amount)
+
 
 @bot.command(aliases=['transcript', 'copy'])
 @commands.has_permissions(administrator=True)
