@@ -38,35 +38,27 @@ async def howTO(ctx):
   await ctx.send(embed=embed)
 
 
-@bot.command(brief='This command generates a new ticket for the user!', aliases=['ticket'])
-async def generate(ctx):
-    await ctx.message.delete()
-    warn = await ctx.send("Alright your ticket will be created")
-    time.sleep(4)
-    await warn.delete()
-    author = ctx.author
-    guild = ctx.message.guild
-    client = bot.user
+@bot.command(aliases=['tickets'])
+async def ticket(ctx):
     admin_role = get(guild.roles, name="Admin")
+    bot_self = bot.user
+    author = ctx.author
     overwrites = {
         guild.default_role: discord.PermissionOverwrite(read_messages=False),
-        author: discord.PermissionOverwrite(read_messages=True),
         admin_role: discord.PermissionOverwrite(read_messages=True),
-        client: discord.PermissionOverwrite(
-            read_messages=True, manage_channels=True)
+        bot_self: discord.PermissionOverwrite(read_messages=True, manage_channels=True),
+        author: discord.PermissionOverwrite(read_messages=True)
     }
-    nameCAT = 'TICKET'
-    category = discord.utils.get(ctx.guild.categories, name=nameCAT)
-    TextChannel = await guild.create_text_channel(f'{ctx.author}', overwrites=overwrites, reason='Ticketing', category=category)
-    await TextChannel.send(f'{ctx.author.mention}, Welcome, Type down your problem and until then i will get some support staff to answer your query. Just use the ^close command to close ticket. THANK YOU FOR YOUR COORDINATION.')
-    def check(m):
-        return m.content == "^close" and m.channel == TextChannel
-    guild = ctx.message.guild
-    msg = await bot.wait_for('message', check=check)
-    await TextChannel.send("Ok so your ticket will be deleted")
-    overwrite = discord.PermissionOverwrite()
-    overwrite.read_messages = False
-    await TextChannel.set_permissions(ctx.author, overwrite=overwrite)
+    confirmation = await ctx.send(f"Hey, {ctx.author.mention} Please react to this message with the below emoji to open a ticket.")
+    await confirmation.add_reaction(emoji='✅')
+    def check(reaction, user):
+        return user == ctx.author and str(reaction.emoji) == '✅'
+    try:
+        reaction, user = await bot.wait_for('reaction_add', timeout=60.0, check=check)
+        guild = ctx.message.guild
+        TicketChannel = await guild.create_text_channel(f'{ctx.author}', overwrites=overwrites)
+    except asyncio.TimeoutError:
+        await ctx.send(f"{ctx.author.mention}, You didnt react on time to open your ticket successfully.")
 
 
 @bot.command(brief='This command can delete bulk messages!')
@@ -93,6 +85,7 @@ async def history(ctx, limit: int = 100):
     await ctx.send(f"{ctx.author.mention}, Transcript saved.")
     history = discord.File(fp=f'{channel}_messages.txt', filename=None)
     await ctx.send(file=history)
+    
 
 @bot.command(aliases=['del_chan'])
 @commands.has_permissions(administrator=True)
