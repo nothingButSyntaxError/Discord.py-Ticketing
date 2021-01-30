@@ -40,6 +40,7 @@ async def howTO(ctx):
 
 @bot.command(aliases=['tickets'])
 async def ticket(ctx):
+    guild = ctx.message.guild
     admin_role = get(guild.roles, name="Admin")
     bot_self = bot.user
     author = ctx.author
