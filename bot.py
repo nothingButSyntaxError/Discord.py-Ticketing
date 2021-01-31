@@ -86,7 +86,7 @@ async def ticket(ctx):
         await ctx.send(f"{ctx.author.mention}, Transcript saved.")
         history = discord.File(fp=f'{channel}_messages.txt', filename=None)
         await ctx.send(file=history)
-    else:
+    except:
         pass
     def check_closeT(user, reaction):
         return user == ctx.author and str(reaction.emoji) == '❌'
@@ -94,7 +94,7 @@ async def ticket(ctx):
         reaction, user = await bo.wait_for('reaction_add', check=check_closeT)
         await ctx.send("Ok deleting your ticket in 5 seconds.")
         await TicketChannel.delete()
-    else:
+    except:
         pass
 
 
