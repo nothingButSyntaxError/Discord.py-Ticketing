@@ -61,42 +61,6 @@ async def ticket(ctx):
         await TicketChannel.send(f"Hey, {ctx.author.mention}, you have opened a ticket so please wait until I get some support staff and until then please write your complaint down.")
     except asyncio.TimeoutError:
         await ctx.send(f"{ctx.author.mention}, You didnt react on time to open your ticket successfully.")
-    def check_close(m):
-        m.content == "^close" and m.channel == TicketChannel
-    msg = await bot.wait_for('message', check=check_close)
-    close_msg = await TicketChannel.send("To get a transcript react with the '🗒️' emoji below and to successfully close the ticket react with '❌' emoji.")
-    await close_msg.add_reaction(emoji='❌')
-    await close_msg.add_reaction(emoji='🗒️')
-    def check_copy(reaction, user):
-        return user == ctx.author and str(reaction.emoji) == '🗒️'
-    try:
-        reaction, user = await bot.wait_for('reaction_add', check=check_copy)
-        channel = ctx.message.channel
-        messages = await ctx.channel.history(limit=limit).flatten()
-        with open(f"{channel}_messages.txt", "a+", encoding="utf-8") as f:
-            print(
-                f"\nTranscript Saved by - {ctx.author.display_name}.\n\n", file=f)
-        for message in messages:
-            embed = ""
-            if len(message.embeds) != 0:
-                embed = message.embeds[0].description
-                print(f"{message.author.name} - {embed}", file=f)
-            print(f"{message.author.name} - {message.content}", file=f)
-        await ctx.message.add_reaction("✅")
-        await ctx.send(f"{ctx.author.mention}, Transcript saved.")
-        history = discord.File(fp=f'{channel}_messages.txt', filename=None)
-        await ctx.send(file=history)
-    except:
-        pass
-    def check_closeT(user, reaction):
-        return user == ctx.author and str(reaction.emoji) == '❌'
-    try:
-        reaction, user = await bo.wait_for('reaction_add', check=check_closeT)
-        await ctx.send("Ok deleting your ticket in 5 seconds.")
-        await TicketChannel.delete()
-    except:
-        pass
-
 
 
 @bot.command(brief='This command can delete bulk messages!')
