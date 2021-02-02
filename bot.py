@@ -22,8 +22,8 @@ async def on_ready():
   print(f"{bot.user} says:\nHello")
 
 @bot.event
-async def on_guild_join(ctx):
-  TicketChannel = await guild.create_text_channel
+async def on_guild_join(guild):
+  TicketChannel = await guild.create_text_channel('TicketChannel')
 
 @bot.command()
 @commands.has_permissions(administrator=True)
