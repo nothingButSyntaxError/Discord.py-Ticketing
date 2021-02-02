@@ -93,7 +93,6 @@ async def clear(ctx, amount: int):
 
 
 @bot.command(aliases=['transcript', 'copy'])
-@commands.has_permissions(administrator=True)
 async def history(ctx, limit: int = 100):
     channel = ctx.message.channel
     messages = await ctx.channel.history(limit=limit).flatten()
