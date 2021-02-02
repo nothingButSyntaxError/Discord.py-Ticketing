@@ -108,7 +108,7 @@ async def history(ctx, limit: int = 100):
     await ctx.message.add_reaction("✅")
     await ctx.send(f"{ctx.author.mention}, Transcript saved.")
     history = discord.File(fp=f'{channel}_messages.txt', filename=None)
-    await ctx.send(file=history)
+    await ctx.author.send(file=history)
     
 
 @bot.command(aliases=['del_chan'])
