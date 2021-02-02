@@ -23,7 +23,7 @@ async def on_ready():
 
 @bot.event
 async def on_guild_join(guild):
-  TicketChannel = await guild.create_text_channel('TicketChannel')
+  TicketChannel = await guild.create_category_channel('Tickets')
 
 @bot.command()
 @commands.has_permissions(administrator=True)
