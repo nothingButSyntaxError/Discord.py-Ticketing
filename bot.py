@@ -67,12 +67,12 @@ async def ticket(ctx):
         with open(f"{channel}_messages.txt", "a+", encoding="utf-8") as f:
             print(
                 f"\nTranscript Saved by - {ctx.author.display_name}.\n\n", file=f)
-                for message in messages:
-                    embed = ""
-                    if len(message.embeds) != 0:
-                        embed = message.embeds[0].description
-                        print(f"{message.author.name} - {embed}", file=f)
-                    print(f"{message.author.name} - {message.content}", file=f)
+            for message in messages:
+                embed = ""
+                if len(message.embeds) != 0:
+                    embed = message.embeds[0].description
+                    print(f"{message.author.name} - {embed}", file=f)
+                print(f"{message.author.name} - {message.content}", file=f)
         await ctx.message.add_reaction("✅")
         await ctx.send(f"{ctx.author.mention}, Transcript saved.")
         history = discord.File(fp=f'{channel}_messages.txt', filename=None)
