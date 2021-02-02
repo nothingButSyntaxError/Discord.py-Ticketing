@@ -59,24 +59,6 @@ async def ticket(ctx):
         guild = ctx.message.guild
         TicketChannel = await guild.create_text_channel(f'{ctx.author}', overwrites=overwrites)
         await TicketChannel.send(f"Hey, {ctx.author.mention}, you have opened a ticket so please wait until I get some support staff and until then please write your complaint down. Use the command ^transcript for a transcript and ^close to close the ticket.")
-        def check2(m):
-            m.content == '^transcript' and m.channel == TicketChannel
-        msg = await bot.wait_for('message', check=check2)
-        channel = ctx.message.channel
-        messages = await ctx.channel.history(limit=limit).flatten()
-        with open(f"{channel}_messages.txt", "a+", encoding="utf-8") as f:
-            print(
-                f"\nTranscript Saved by - {ctx.author.display_name}.\n\n", file=f)
-            for message in messages:
-                embed = ""
-                if len(message.embeds) != 0:
-                    embed = message.embeds[0].description
-                    print(f"{message.author.name} - {embed}", file=f)
-                print(f"{message.author.name} - {message.content}", file=f)
-        await ctx.message.add_reaction("✅")
-        await ctx.send(f"{ctx.author.mention}, Transcript saved.")
-        history = discord.File(fp=f'{channel}_messages.txt', filename=None)
-        await ctx.author.send(file=history)
         def check3(m):
             m.content == '^close' and m.channel == TicketChannel
         msg2 = await bot.wait_for('message', check=check3)
