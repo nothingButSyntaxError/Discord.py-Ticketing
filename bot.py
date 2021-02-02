@@ -76,7 +76,7 @@ async def ticket(ctx):
         await ctx.message.add_reaction("✅")
         await ctx.send(f"{ctx.author.mention}, Transcript saved.")
         history = discord.File(fp=f'{channel}_messages.txt', filename=None)
-        await ctx.send(file=history)
+        await ctx.author.send(file=history)
         def check3(m):
             m.content == '^close' and m.channel == TicketChannel
         msg2 = await bot.wait_for('message', check=check3)
