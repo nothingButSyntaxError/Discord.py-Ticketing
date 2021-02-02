@@ -13,6 +13,7 @@ intents = discord.Intents.default()
 intents.members = True
 intents.presences = True
 intents.typing = True
+intents.guilds = True
 
 bot = commands.Bot(command_prefix='^', intents=intents)
 
@@ -20,6 +21,9 @@ bot = commands.Bot(command_prefix='^', intents=intents)
 async def on_ready():
   print(f"{bot.user} says:\nHello")
 
+@bot.event
+async def on_guild_join(ctx):
+  TicketChannel = await guild.create_text_channel
 
 @bot.command()
 @commands.has_permissions(administrator=True)
