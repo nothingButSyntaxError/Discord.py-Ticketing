@@ -24,7 +24,8 @@ async def on_ready():
 @bot.event
 async def on_guild_join(guild):
   TicketChannel = await guild.create_category_channel('Tickets')
-  TicketInro = await guild.create_text_channel('Tick-EAT Intro', category=TICKETS)
+  channelid = TicketChannel.id
+  TicketInro = await guild.create_text_channel('Tick-EAT Intro', category=channelid)
   embed = discord.Embed(title='Tick-EAT', description='Introduction to Tick-EAT and its commands', colour=discord.Colour.blurple())
   embed.add_field(name='clear Command', value='To use the command the person should have manage messages permission and the command can delete multiple messages.', inline=True)
   embed.add_field(name='ticket Command', value='The ticket command can be used by anyone and it will create a new channel for ticketing.', inline=True)
