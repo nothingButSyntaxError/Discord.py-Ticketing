@@ -24,7 +24,7 @@ async def on_ready():
 @bot.event
 async def on_guild_join(guild):
   TicketChannel = await guild.create_category_channel('Tickets')
-  Tick-EAT_intro = await guild.create_text_channel('Tick-EAT Intro', category=Tickets)
+  TicketInro = await guild.create_text_channel('Tick-EAT Intro', category=Tickets)
   embed = discord.Embed(title='Tick-EAT', description='Introduction to Tick-EAT and its commands', colour=discord.Colour.blurple())
   embed.add_field(name='clear Command', value='To use the command the person should have manage messages permission and the command can delete multiple messages.', inline=True)
   embed.add_field(name='ticket Command', value='The ticket command can be used by anyone and it will create a new channel for ticketing.', inline=True)
@@ -32,7 +32,7 @@ async def on_guild_join(guild):
   embed.add_field(name='transcript Command', value='The transcript command can be used for obtaining a transcript of upto 100 messages of any channel inculding the ticket channels', inline=True)
   embed.set_image(ctx.guild.icon_url)
   embed.set_author(name='Tick-EAT')  
-  await Tick-EAT_intro.send(embed=embed)
+  await TicketIntro.send(embed=embed)
 
 @bot.command()
 @commands.has_permissions(administrator=True)
