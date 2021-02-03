@@ -72,12 +72,12 @@ async def ticket(ctx):
         guild = ctx.message.guild
         TicketChannel = await guild.create_text_channel(f'{ctx.author}', overwrites=overwrites, category=Tickets)
         await TicketChannel.send(f"Hey, {ctx.author.mention}, you have opened a ticket so please wait until I get some support staff and until then please write your complaint down. Use the command ^transcript for a transcript and ^close to close the ticket.")
-        def check3(m):
+        def checkClose(m):
             m.content == '^close' and m.channel == TicketChannel
-        msg2 = await bot.wait_for('message', check=check3)
-        await TicketChannel.send("Ok deleting your ticket in 5 seconds")
+        msg = await bot.wait_for('message', check=checkClose)
+        await TicketChannel.send("Ok closing the ticket")
         await TicketChannel.delete()
-    except asyncio.TimeoutError:
+    except asyncio.TimeoutError:    
         await ctx.send(f"{ctx.author.mention}, You didnt react on time to open your ticket successfully.")
 
 
