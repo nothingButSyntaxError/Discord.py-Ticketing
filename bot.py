@@ -30,7 +30,6 @@ async def on_guild_join(guild):
   embed.add_field(name='ticket Command', value='The ticket command can be used by anyone and it will create a new channel for ticketing.', inline=True)
   embed.add_field(name='del_chan Command', value='The del_chan command can be used only by people who have administrator permission and from this command you can delete a channel', inline=True)
   embed.add_field(name='transcript Command', value='The transcript command can be used for obtaining a transcript of upto 100 messages of any channel inculding the ticket channels', inline=True)
-  embed.set_image(guild.icon_url)
   embed.set_author(name='Tick-EAT')  
   await TicketIntro.send(embed=embed)
 
