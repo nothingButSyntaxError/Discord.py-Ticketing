@@ -71,7 +71,7 @@ async def ticket(ctx):
     try:
         reaction, user = await bot.wait_for('reaction_add', timeout=60.0, check=check)
         guild = ctx.message.guild
-        TicketChannel = await guild.create_text_channel(f'{ctx.author}', overwrites=overwrites, category=Tickets)
+        TicketChannel = await guild.create_text_channel(f'{ctx.author}', overwrites=overwrites)
         await TicketChannel.send(f"Hey, {ctx.author.mention}, you have opened a ticket so please wait until I get some support staff and until then please write your complaint down. Use the command ^transcript for a transcript and ^close to close the ticket.")
         def checkClose(m):
             m.content == '^close' and m.channel == TicketChannel
