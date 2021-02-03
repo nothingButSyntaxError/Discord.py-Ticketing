@@ -76,7 +76,8 @@ async def ticket(ctx):
         def checkClose(m):
             return m.content == 'closeTicket' and m.channel == TicketChannel
         msg = await bot.wait_for('message', check=checkClose)
-        await TicketChannel.send("Ok closing the ticket")
+        await TicketChannel.send("Ok closing the ticket in 5 seconds")
+        time.sleep(5)
         await TicketChannel.delete()
     except asyncio.TimeoutError:    
         await ctx.send(f"{ctx.author.mention}, You didnt react on time to open your ticket successfully.")
